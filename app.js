@@ -25,21 +25,22 @@ App.directive('chart', function ($parse) {
 					return;
 				}
 
-				var data = scope.data,
-				chart = d3.select('#chart')
-				.append("div").attr("class", "chart")
-				.selectAll('div')
-				.data(data).enter()
-				.append("div")
-				.transition().ease("elastic")
-				.style("width", function(d) { return d + "%"; })
-				.text(function(d) { return d + "%"; });
+				var data = scope.data;
 
+		d3.select("body").selectAll("div")
+				.data(data.map(function(d){return d.total;}))
+				.enter()
+				.append("div")
+				.attr("class", "bar")
+				.style("height", function(d) {
+					var barHeight = d * 5;
+					return barHeight + "px";
+				});
 				console.log(data);
 
 			});
-		}
-	};
+}
+};
 });
 
 
@@ -50,7 +51,8 @@ function nestbyDate(raw_data){
 	//lastDate = raw_data[nModels-1].last_sess,
 	nModels=raw_data;
 
-	// Classify the data by date
+	// We will build the following model:
+	// [{'date':date, 'total':total},...]
 	var nestedData = d3.nest()
 	.key(function(d) {
 		return  d.first_sess.substr(0, 10); // Removes the THH:MM:SS"
@@ -69,7 +71,7 @@ function nestbyDate(raw_data){
 	});
 
 
-	obj = {};
+	//obj = {};
 
 	// We will build the following model:
 	// [{'date':date, 'counter':counter},...]

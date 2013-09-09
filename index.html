@@ -3,27 +3,14 @@
 <head>
 	<meta charset="utf-8">
 	<style>
-	.chart {
-		background: #eee;
-		padding: 3px;
-	}
+		div.bar {
+				display: inline-block;
+				width: 20px;
+				height: 75px;	/* Gets overriden by D3-assigned height below */
+				margin-right: 2px;
+				background-color: teal;
+			}
 
-	.chart div {
-		width: 0;
-		transition: all 1s ease-out;
-		-moz-transition: all 1s ease-out;
-		-webkit-transition: all 1s ease-out;
-	}
-
-	.chart div {
-		font: 10px sans-serif;
-		background-color: steelblue;
-		text-align: right;
-		padding: 3px;
-		margin: 5px;
-		color: white;
-		box-shadow: 2px 2px 2px #666;
-	}
 	</style>
 	<title> KA Lite visualization</title>
 	<script src="http://d3js.org/d3.v2.js"></script>
