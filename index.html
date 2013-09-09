@@ -1,0 +1,33 @@
+<!doctype html>
+<html ng-app="App" >
+<head>
+  <meta charset="utf-8">
+   <style>
+        body {
+            font: 14px sans-serif;
+        }
+        .axis path, .axis line {
+            fill: none;
+            stroke: black;
+            shape-rendering: crispEdges;
+        }
+        .axis path{
+            fill: none;
+            stroke: none;
+        }
+        .bar {
+            fill: steelblue;
+        }
+    </style>
+  <title> KA Lite visualization</title>
+  <script src="http://d3js.org/d3.v2.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.js"></script>
+  <script src="app.js"></script>
+  <script src="bar_chart.js"></script>
+
+</head>
+<body ng-controller="KALiteCtrl">
+	<h1>KA Lite Data</h1>
+    <bar-chart height="options.height" data="data" hovered="hovered(args)"></bar-chart>
+</body>
+</html>
