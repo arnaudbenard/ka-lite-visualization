@@ -9,6 +9,7 @@ d3.custom.barChart = function module() {
     var svg, duration = 500;
 
     var dispatch = d3.dispatch('customHover');
+    
     function exports(_selection) {
         _selection.each(function(_data) {
 

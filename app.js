@@ -5,52 +5,54 @@ App.controller('KALiteCtrl', function($scope, $http) {
 
 	$http.get('data.json')
 	.then(function(res){
-		$scope.data = organizeData(res.data);
+		//$scope.data = nestbyDate(res.data);
+		$scope.data = "1,2,3,4";
 	});
-
-	$scope.options = {width: 500, height: 300, 'bar': 'aaa'};
 });
 
-// App.directive('barChart', function () {
+App.directive('chart', function ($parse) {
 
-// 	// The chart is defined in bar_chart.js
-// 	var chart = d3.custom.barChart();
-// 	return {
-// 		restrict: 'E',
-// 		replace: true,
-// 		template: '<div class="chart"></div>',
-// 		scope:{
-// 			height: '=height',
-// 			data: '=data',
-// 			hovered: '&hovered'
-// 		},
-// 		link: function(scope, element, attrs) {
-// 			var chartEl = d3.select(element[0]);
-// 			chart.on('customHover', function(d, i){
-// 				scope.hovered({args:d});
-// 			});
+	return {
+		restrict: 'E',
+		replace: true,
+		template: '<div id="chart"></div>',
+		link: function (scope, element, attrs) {
 
-// 			scope.$watch('data', function (newVal, oldVal) {
-// 				chartEl.datum(newVal).call(chart);
-// 			});
+			scope.$watch('data', function (newVal, oldVal) {
+				
+				// if 'data' is undefined, exit
+				if (!newVal) {
+					return;
+				}
 
-// 			scope.$watch('height', function(d, i){
-// 				chartEl.call(chart.height(scope.height));
-// 			});
-// 		}
-// 	};
-// });
+				var data = scope.data,
+				chart = d3.select('#chart')
+				.append("div").attr("class", "chart")
+				.selectAll('div')
+				.data(data).enter()
+				.append("div")
+				.transition().ease("elastic")
+				.style("width", function(d) { return d + "%"; })
+				.text(function(d) { return d + "%"; });
 
-function organizeData(raw_data){
+				console.log(data);
 
+			});
+		}
+	};
+});
+
+
+function nestbyDate(raw_data){
 
 	var nestedData = d3.nest()
-    .key(function(d) {
-		return  d.first_sess.substr(0, 10);
-    })
-    .sortKeys(d3.ascending)
-    .entries(raw_data);
+	.key(function(d) {
+		return  d.first_sess.substr(0, 10); // Removes the THH:MM:SS"
+	})
+	.sortKeys(d3.ascending)
+	.entries(raw_data);
 
-    console.log(nestedData);
-    return raw_data;
+	console.log(nestedData);
+
+	return nestedData;
 }

@@ -1,35 +1,39 @@
 <!doctype html>
 <html ng-app="App" >
 <head>
-  <meta charset="utf-8">
-   <style>
-        body {
-            font: 14px sans-serif;
-        }
-        .axis path, .axis line {
-            fill: none;
-            stroke: black;
-            shape-rendering: crispEdges;
-        }
-        .axis path{
-            fill: none;
-            stroke: none;
-        }
-        .bar {
-            fill: steelblue;
-        }
-    </style>
-  <title> KA Lite visualization</title>
-  <script src="http://d3js.org/d3.v2.js"></script>
-  <script src="crossfilter.v1.min.js"></script>
+	<meta charset="utf-8">
+	<style>
+	.chart {
+		background: #eee;
+		padding: 3px;
+	}
 
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.js"></script>
-  <script src="app.js"></script>
-  <script src="bar_chart.js"></script>
+	.chart div {
+		width: 0;
+		transition: all 1s ease-out;
+		-moz-transition: all 1s ease-out;
+		-webkit-transition: all 1s ease-out;
+	}
+
+	.chart div {
+		font: 10px sans-serif;
+		background-color: steelblue;
+		text-align: right;
+		padding: 3px;
+		margin: 5px;
+		color: white;
+		box-shadow: 2px 2px 2px #666;
+	}
+	</style>
+	<title> KA Lite visualization</title>
+	<script src="http://d3js.org/d3.v2.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.js"></script>
+	<script src="app.js"></script>
 
 </head>
 <body ng-controller="KALiteCtrl">
 	<h1>KA Lite Data</h1>
-    <bar-chart height="options.height" data="data" hovered="hovered(args)"></bar-chart>
+	<chart data="data"></chart>
 </body>
 </html>
